@@ -5,3 +5,4 @@
 5.0后运行速度提升，基于最低版本5.0/ api 21
 目前主流的设备分辨率目录：drawable-xxhdpi
 gradle：基于Groovy的领域特定语言（DSL）设置，摒弃了传动基于xml（Ant/Maven）
+x
