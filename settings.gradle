@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "relearn-android-kotlin"
