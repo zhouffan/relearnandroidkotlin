@@ -12,7 +12,7 @@ import org.fw.relearn_android_kotlin.util.ActivityCollector
  *    desc   : 基类
  *    version: 1.0
  */
-class BaseActivity: AppCompatActivity() {
+open class BaseActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         ActivityCollector.addActivity(this)

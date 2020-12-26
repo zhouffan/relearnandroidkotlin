@@ -1,4 +1,4 @@
-package org.fw.relearn_android_kotlin._android.entity
+package org.fw.relearn_android_kotlin._android._03.entity
 
 /**
  *    author : 进击的巨人

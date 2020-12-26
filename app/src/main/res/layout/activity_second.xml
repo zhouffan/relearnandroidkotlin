@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="._android.ListViewActivity">
+    tools:context="._android._03.ListViewActivity">
 
     <Button
         android:id="@+id/btn"

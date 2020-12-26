@@ -1,17 +1,16 @@
-package org.fw.relearn_android_kotlin._android
+package org.fw.relearn_android_kotlin._android._03
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import org.fw.relearn_android_kotlin.R
-import org.fw.relearn_android_kotlin._android.adapter.FruitAdapter
-import org.fw.relearn_android_kotlin._android.entity.Fruit
+import org.fw.relearn_android_kotlin._android._03.adapter.FruitAdapter
+import org.fw.relearn_android_kotlin._android._03.entity.Fruit
 import org.fw.relearn_android_kotlin.util.LogUtil
 
 /**
@@ -30,6 +29,7 @@ class ListViewActivity : AppCompatActivity() {
             val intent = Intent(context, ListViewActivity::class.java)
             bundle?.let { intent.putExtras(it) }
             context.startActivity(intent)
+
         }
     }
 

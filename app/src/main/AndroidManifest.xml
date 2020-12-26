@@ -10,23 +10,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Relearnandroidkotlin">
-        <activity android:name="._android.ThirdActivity">
-            <intent-filter tools:ignore="AppLinkUrlError">
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="https"/>
-            </intent-filter>
-        </activity>
-        <activity android:name="._android.ListViewActivity" >
+        <activity android:name="._android._05.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="._android.MainActivity">
+        <activity android:name="._android._04.FragmentActivity">
 
         </activity>
+        <activity android:name="._android._03.ChatActivity">
+
+        </activity>
+        <activity android:name="._android._03.RecycleViewActivity">
+
+        </activity>
+        <activity android:name="._android._03.ThirdActivity">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity android:name="._android._03.ListViewActivity" />
+        <activity android:name="._android._03.MainActivity" />
     </application>
 
 </manifest>
