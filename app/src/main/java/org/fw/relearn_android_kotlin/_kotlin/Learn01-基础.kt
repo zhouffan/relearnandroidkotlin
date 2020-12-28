@@ -31,6 +31,9 @@ class Learn01 {
      * 循环 0..10 --->[0, 10]
      */
     fun printNum(){
+        //..为语法糖， 运算符重载
+        for (i in 0.rangeTo(10)){
+        }
         for ( i in 0..10){
             print("$i ")
         }

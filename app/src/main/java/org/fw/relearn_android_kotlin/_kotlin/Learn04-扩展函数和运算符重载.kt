@@ -101,11 +101,11 @@ fun getRandomLengthStr(string: String): String{
 //    }
 //    return sb.toString()
 //}
-//string内置了重复函数
+//变写   string内置了重复函数
 operator fun String.times(num: Int) = repeat(num)
 
 //变写 getRandomLengthStr
-fun getRandomLengthStr2(string: String): String = string * (1..2).random()
+fun getRandomLengthStr2(string: String): String = string * (1..20).random()
 
 fun main() {
     val str = "wer23aa"
