@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.fw.relearn_android_kotlin">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="false"
@@ -11,19 +14,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Relearnandroidkotlin">
-        <activity android:name="._android._06.MainActivity">
+        <activity android:name="._android._07.TestMyContentProviderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="._android._05.MainActivity">
+        <activity android:name="._android._07.TestContentProviderActivity">
 
         </activity>
-        <activity android:name="._android._04.FragmentActivity"></activity>
-        <activity android:name="._android._03.ChatActivity"></activity>
-        <activity android:name="._android._03.RecycleViewActivity"></activity>
+        <activity android:name="._android._07.TestPermissionActivity">
+        </activity>
+        <activity android:name="._android._06.MainActivity" />
+        <activity android:name="._android._05.MainActivity" />
+        <activity android:name="._android._04.FragmentActivity" />
+        <activity android:name="._android._03.ChatActivity" />
+        <activity android:name="._android._03.RecycleViewActivity" />
         <activity android:name="._android._03.ThirdActivity">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
@@ -35,6 +42,12 @@
         </activity>
         <activity android:name="._android._03.ListViewActivity" />
         <activity android:name="._android._03.MainActivity" />
+
+        <provider
+            android:name="._android._07.MyProvider"
+            android:authorities="com.fuwa.app.provider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
