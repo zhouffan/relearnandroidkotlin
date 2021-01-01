@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:name=".MyApp"
         android:allowBackup="false"
@@ -14,6 +16,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Relearnandroidkotlin">
+        <service
+            android:name="._android._09.ForegroundService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name="._android._09.MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name="._android._09.ServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="._android._08.MusicVideoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
