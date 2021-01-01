@@ -14,6 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Relearnandroidkotlin">
+        <activity android:name="._android._08.MusicVideoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="._android._08.TestActivity" />
+        <activity android:name="._android._08.NotificationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="._android._07.TestMyContentProviderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,11 +36,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="._android._07.TestContentProviderActivity">
-
-        </activity>
-        <activity android:name="._android._07.TestPermissionActivity">
-        </activity>
+        <activity android:name="._android._07.TestContentProviderActivity" />
+        <activity android:name="._android._07.TestPermissionActivity" />
         <activity android:name="._android._06.MainActivity" />
         <activity android:name="._android._05.MainActivity" />
         <activity android:name="._android._04.FragmentActivity" />
@@ -48,6 +60,15 @@
             android:authorities="com.fuwa.app.provider"
             android:enabled="true"
             android:exported="true" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.fuwa.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
