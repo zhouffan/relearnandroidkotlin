@@ -60,5 +60,9 @@ dependencies {
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.4.2'
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: '1.4.2'
 
+    // https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-extensions
+    implementation group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: '2.2.0'   //使用viewmodel组件
+    implementation group: 'androidx.lifecycle', name: 'lifecycle-livedata-ktx', version: '2.2.0' //加入了对obderve()方法的语法扩展
+
 
 }
