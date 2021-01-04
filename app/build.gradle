@@ -3,8 +3,10 @@ plugins {
     id 'kotlin-android'
     //插件： 1 可以自动找到view
     id 'kotlin-android-extensions'
+    //插件：room使用注解生成代码
+    id 'kotlin-kapt'
 }
-
+//apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
@@ -17,6 +19,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions{
+            annotationProcessorOptions{
+                arguments = [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
     }
 
     buildTypes {
@@ -32,6 +43,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+
 }
 
 dependencies {
@@ -63,6 +76,14 @@ dependencies {
     // https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-extensions
     implementation group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: '2.2.0'   //使用viewmodel组件
     implementation group: 'androidx.lifecycle', name: 'lifecycle-livedata-ktx', version: '2.2.0' //加入了对obderve()方法的语法扩展
+
+    //room使用
+    implementation group: 'androidx.room', name: 'room-runtime', version: '2.2.5'
+    kapt group: 'androidx.room', name: 'room-compiler', version: '2.2.5'//注解
+
+    //workmanager
+    implementation group: 'androidx.work', name: 'work-runtime', version: '2.4.0'
+
 
 
 }
