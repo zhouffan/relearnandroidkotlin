@@ -93,16 +93,16 @@ class Myset2<T>(private val helperSet: HashSet<T>): Set<T> by helperSet{
  * 2 必须实现 getValue和setValue（不一定必须，如果属性是val，无法重新赋值）  并且使用operator关键字
  *
  */
-class Myclass3{
+class Myclass3_7{
     var name by Delegate()
 }
 class Delegate{
     var value: Any? = null
-    operator fun getValue(myclass3: Myclass3, property: KProperty<*>): Any? {
+    operator fun getValue(myclass3: Myclass3_7, property: KProperty<*>): Any? {
         return value
     }
 
-    operator fun setValue(myclass3: Myclass3, property: KProperty<*>, any: Any?) {
+    operator fun setValue(myclass3: Myclass3_7, property: KProperty<*>, any: Any?) {
         value = any
     }
 }

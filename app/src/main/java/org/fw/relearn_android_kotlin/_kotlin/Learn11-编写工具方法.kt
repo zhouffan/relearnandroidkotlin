@@ -35,7 +35,7 @@ fun method11_01(){
     val c1 = 1.4
     var larger4 = maxNums2(a1, b1, c1)
 
-    1.showToast(MyApp.get())
+    1.showToast(MyApp.app)
 
     val view: View? = null
     view?.showSnackbar("xxxxxx", "ok", Snackbar.LENGTH_LONG){

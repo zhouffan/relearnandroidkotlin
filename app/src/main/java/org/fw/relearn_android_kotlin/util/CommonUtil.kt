@@ -13,7 +13,7 @@ import org.fw.relearn_android_kotlin.MyApp
  */
 
 fun String.showToast(){
-    Toast.makeText(MyApp.get(), this, Toast.LENGTH_SHORT).show()
+    Toast.makeText(MyApp.app, this, Toast.LENGTH_SHORT).show()
 }
 
 fun String.LogShow(){
