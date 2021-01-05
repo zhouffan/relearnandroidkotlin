@@ -14,3 +14,10 @@ kotlin----class----Java虚拟机（art android虚拟机）
 所以第三方公司JetBrains设计出一门语言开发android。
 
 kotlin（使用了更多规则的语法）和java 100%兼容----java可以转kotlin，kotlin不能转Java。
+
+
+
+箭头是单向
+UI控制层-->viewmodel层-->仓库层-->本地数据源---持久化文件
+                             -->网络数据源---webservice
+
