@@ -4,6 +4,7 @@ import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import org.fw.weather.logic.dao.PlaceDao
 import org.fw.weather.logic.model.PlaceResponse
 import org.fw.weather.logic.model.Weather
 import org.fw.weather.logic.network.WeatherNetwork
@@ -70,8 +71,14 @@ object Repository {
             }
 
         }catch (e: Exception){
-            Result.failure<List<Weather>>(e)
+            Result.failure<Weather>(e)
         }
         emit(result)
     }
+
+    fun savePlace(place: PlaceResponse.Place) = PlaceDao.savePlace(place)
+
+    fun getSavePlace() = PlaceDao.getSavedPlace()
+
+    fun isPlaceSaved() = PlaceDao.isPlaceSaved()
 }

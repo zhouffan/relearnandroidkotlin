@@ -1,4 +1,4 @@
-package org.fw.weather.ui.place
+package org.fw.weather.ui.weather
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -31,7 +31,7 @@ class WeatherViewModel: ViewModel() {
         Repository.refreshWeather(it.lng, it.lat)
     }
 
-    fun searchPlaces(lng: String, lat: String){
+    fun refreshWeather(lng: String, lat: String){
         locationLiveData.value = PlaceResponse.Location(lng, lat)
     }
 }

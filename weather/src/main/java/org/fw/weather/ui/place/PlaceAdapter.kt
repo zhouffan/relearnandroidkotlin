@@ -1,13 +1,16 @@
 package org.fw.weather.ui.place
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_weather.*
 import org.fw.weather.R
-import org.fw.weather.logic.model.Place
+import org.fw.weather.logic.model.PlaceResponse
+import org.fw.weather.ui.weather.WeatherActivity
 
 /**
  *    author : 进击的巨人
@@ -16,7 +19,7 @@ import org.fw.weather.logic.model.Place
  *    desc   :
  *    version: 1.0
  */
-class PlaceAdapter(private val placeList: List<Place>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>(){
+class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<PlaceResponse.Place>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View) :RecyclerView.ViewHolder(view) {
         val placeName: TextView = view.findViewById(R.id.placeName)
@@ -30,7 +33,31 @@ class PlaceAdapter(private val placeList: List<Place>) : RecyclerView.Adapter<Pl
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.place_item, parent, false)
-        return ViewHolder(view)
+        val holder = ViewHolder(view)
+        holder.itemView.setOnClickListener {
+            val position = holder.adapterPosition
+            val place = placeList[position]
+            val activity = fragment.activity
+            if(activity is WeatherActivity){
+                activity.drawerLayout.closeDrawers()
+                activity.viewModel.locationLng = place.location.lng
+                activity.viewModel.locationLat = place.location.lat
+                activity.viewModel.placeName = place.name
+                activity.refreshWeather()
+
+            }else{
+                val intent = Intent(parent.context, WeatherActivity::class.java).apply {
+                    putExtra("location_lng", place.location.lng)
+                    putExtra("location_lat", place.location.lat)
+                    putExtra("place_name", place.name)
+                }
+                fragment.startActivity(intent)
+                fragment.activity?.finish()
+            }
+
+            fragment.viewModel.savePlace(place)
+        }
+        return holder
     }
 
     override fun getItemCount() = placeList.size

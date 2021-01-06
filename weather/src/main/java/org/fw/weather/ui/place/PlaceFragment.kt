@@ -1,5 +1,6 @@
 package org.fw.weather.ui.place
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_place.*
+import org.fw.weather.MainActivity
 import org.fw.weather.R
+import org.fw.weather.ui.weather.WeatherActivity
 
 
 class PlaceFragment : Fragment() {
@@ -30,8 +33,21 @@ class PlaceFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        //已经存储的成熟数据,    activity is MainActivity判断防止循环跳转
+        if(activity is MainActivity && viewModel.isPlaceSaved()){
+            val place = viewModel.getSavedPlace()
+            val intent = Intent(context, WeatherActivity::class.java).apply {
+                putExtra("location_lng", place.location.lng)
+                putExtra("location_lat", place.location.lat)
+                putExtra("place_name", place.name)
+            }
+            startActivity(intent)
+            activity?.finish()
+            return
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = PlaceAdapter(viewModel.placeList)
+        adapter = PlaceAdapter(this, viewModel.placeList)
         recyclerView.adapter = adapter
         //监听输入
         searchPlaceEdit.addTextChangedListener {
