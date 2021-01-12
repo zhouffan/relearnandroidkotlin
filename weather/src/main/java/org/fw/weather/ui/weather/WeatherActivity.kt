@@ -44,13 +44,13 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_weather)
 
         if (viewModel.locationLng.isEmpty()){
-            viewModel.locationLng = intent.getStringExtra("location_lng") ?:""
+            viewModel.locationLng = intent.getStringExtra("location_lng") ?:"21.6544"
         }
         if (viewModel.locationLat.isEmpty()){
-            viewModel.locationLat = intent.getStringExtra("location_lat") ?:""
+            viewModel.locationLat = intent.getStringExtra("location_lat") ?:"25.1552"
         }
         if (viewModel.placeName.isEmpty()){
-            viewModel.placeName = intent.getStringExtra("place_name") ?:""
+            viewModel.placeName = intent.getStringExtra("place_name") ?:"北京"
         }
         //数据变化 回调监听
         viewModel.weatherLiveData.observe(this, Observer {

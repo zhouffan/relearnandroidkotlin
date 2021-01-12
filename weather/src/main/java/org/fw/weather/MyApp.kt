@@ -18,6 +18,6 @@ class MyApp :Application(){
 
     companion object{
         lateinit var instance: MyApp
-        const val token = "xxxxxxxxx"
+        const val token = "omxSSxdFjWWA5Bha"
     }
 }
