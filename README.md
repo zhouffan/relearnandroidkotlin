@@ -43,7 +43,145 @@ STORAGE：READ_EXTERNAL_STORAGE/WRITE_EXTERNAL_STORAGE/ACCESS_MEDIA_LOCATION
 ```
 - 前台service：和普通Service最大的区别就在于，它会一直有一个正在运行的图标在系统的状态栏显示，下拉状态栏后可以看到更加详细的信息，非常类似于通知的效果。  
 Android 9.0系统开始，申明 ： <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+- Material Design： 5.0开始.  
+Toolbar/DrawerLayout(androidx库)/FloatingActionButton/MaterialCardView/SwipeRefreshLayout/
+- jetpack: 基础/架构/行为/界面
+- viewmodel：目的：专门分担activity部分工作，存放与界面相关的数据。 activity中能看到的数据都存于其中。  
+特性：屏幕旋转不会丢失数据（activity会重新创建），只有activity退出时，才跟随activity一起销毁。  
+```
+class MainViewModel : ViewModel() { 
+    var counter = 0 
+}
 
+val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+```
+- lifecycle：目的-->让任何一个类都能轻松感知到Activity的生命周期
+```
+class MyObserver : LifecycleObserver { 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun activityStart() {
+        Log.d("MyObserver", "activityStart")
+    } 
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun activityStop() {
+        Log.d("MyObserver", "activityStop")
+    } 
+}
+
+//观察LifecycleOwner的生命周期(在Activity中)
+lifecycle.addObserver(MyObserver())
+
+```
+- LiveData：包含任何类型的数据，并在数据发生变化的时候通知给观察者。（响应式编程组件）
+LiveData特别适合与ViewModel结合在一起使用，虽然它也可以单独用在别的地方，但是绝大多数情况下，它都是使用在ViewModel当中的。
+```
+class MainViewModel : ViewModel() { 
+    val counter = MutableLiveData<Int>() 
+    fun plusOne() {
+        val count = counter.value ?: 0
+        counter.value = count + 1
+    } 
+    fun clear() {
+        counter.value = 0
+    } 
+}
+//activity中， 当LiveData中的数据发生变化时，最新的数据将会实时更新到界面
+viewModel.counter.observe(this, Observer { count ->
+       infoText.text = count.toString() // 将最新数据更新到界面上
+})
+
+```
+- Room：关系型数据库， ORM：对象关系映射
+Entity：实体类 数据库中有一张对应的表，并且表中的列是根据实体类中的字段自动生成的。  
+Dao ：对数据库的各项操作进行封装，在实际编程的时候，逻辑层就不需要和底层数据库打交道了，直接和Dao层进行交互即可。  
+Database ：用于定义数据库中的关键信息，包括数据库的版本号、包含哪些实体类以及提供Dao层的访问实例。
+```
+@Entity
+data class User(var firstName: String, var lastName: String, var age: Int) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+}
+
+@Dao
+interface UserDao { 
+    @Insert
+    fun insertUser(user: User): Long
+    @Update
+    fun updateUser(newUser: User)
+    @Query("select * from User")
+    fun loadAllUsers(): List<User>
+    @Query("select * from User where age > :age")
+    fun loadUsersOlderThan(age: Int): List<User>
+    @Delete
+    fun deleteUser(user: User)
+    @Query("delete from User where lastName = :lastName")
+    fun deleteUserByLastName(lastName: String): Int
+}
+@Database(version = 1, entities = [User::class])
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
+    companion object {
+        private var instance: AppDatabase? = null
+        @Synchronized
+        fun getDatabase(context: Context): AppDatabase {
+            instance?.let {
+                return it
+            }
+            return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "app_database").build().apply {
+                instance = this
+            }
+        }
+    }
+}
+```
+- workManager: 很适合用于处理一些要求定时执行的任务，可以根据操作系统的版本自动选择底层是使用AlarmManager实现还是JobScheduler实现。还支持周期性任务、链式任务处理等功能。  
+用法：  
+1 定义一个后台任务，并实现具体的任务逻辑。  
+2 配置该后台任务的运行条件和约束信息，并构建后台任务请求。  
+3 将该后台任务请求传入WorkManager的enqueue()方法中，系统会在合适的时间运行。
+```
+//1
+class SimpleWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
+    override fun doWork(): Result {
+        Log.d("SimpleWorker", "do work in SimpleWorker")
+        return Result.success()
+    }
+}
+//2
+val request = OneTimeWorkRequest.Builder(SimpleWorker::class.java)
+    .setInitialDelay(5, TimeUnit.MINUTES)
+    .build()
+//3
+WorkManager.getInstance(context).enqueue(request)
+
+```
+- android 10.0以上， Settings→Display→Dark theme中对深色主题进行开启。  
+最简单的一种适配方式就是使用Force Dark，它是一种能让应用程序快速适配深色主题，并且几乎不用编写额外代码的方式。
+```
+<resources>
+    //自动使用深色主题
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        //快速适配深色主题
+        <item name="android:forceDarkAllowed">true</item>
+    </style>
+</resources>
+
+
+//values-night目录   一旦用户开启了深色主题，系统就会去读取values-night/colors.xml
+<resources>
+    <color name="colorPrimary">#303030</color>
+    <color name="colorPrimaryDark">#232323</color>
+    <color name="colorAccent">#008577</color>
+</resources>
+
+```
+
+- Tools→Kotlin→Show Kotlin Bytecode
 
 
 
@@ -178,6 +316,12 @@ fun main() {
 }
 
 ```
+- Serializable/Parcelable  
+class Person : Serializable {}  
+//2  
+@Parcelize  
+class Person(var name: String, var age: Int) : Parcelable
+
 
 
 
